@@ -29,7 +29,4 @@ app.listen(PORT, () => {
   console.log(`Server listening at ${PORT}`);
 });
 
-mongoose.connect(
-  "mongodb+srv://syedscodingden:HaZFeTWbMONWd8dY@cluster0.ygikmwt.mongodb.net/ecommerce",
-  { dbName: "ecommerce" }
-);
+mongoose.connect(`${process.env.DATABASE_URL}`, { dbName: "ecommerce" });
