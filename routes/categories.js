@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Category = require('../models/Category');
+const Category = require("../models/Category");
 const middlewareExports = require("../middleware");
 
 const userAuthenticateJWT = middlewareExports.userAuthenticateJWT;
@@ -28,17 +28,16 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // add safeparse, create zod file for this
   const isValidCategoryInput = req.body;
- 
   let category = {
-    name: isValidCategoryInput.data.name,
-    subCat: isValidCategoryInput.data.subCat,
-    icon: isValidCategoryInput.data.icon,
+    name: isValidCategoryInput.name,
+    subCat: isValidCategoryInput.subCat,
+    icon: isValidCategoryInput.icon,
   };
 
   let existingCategory = await Category.find({
-    name: isValidCategoryInput.data.name,
-    subCat: isValidCategoryInput.data.subCat
-      ? isValidCategoryInput.data.subCat
+    name: isValidCategoryInput.name,
+    subCat: isValidCategoryInput.subCat
+      ? isValidCategoryInput.subCat
       : null,
   });
 
@@ -56,7 +55,6 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", userAuthenticateJWT, async (req, res) => {
-
   let existingCategory = await Category.findByIdAndUpdate(
     req.params.id,
     {
